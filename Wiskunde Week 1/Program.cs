@@ -12,65 +12,52 @@ namespace Wiskunde_Week_1
     {
         static void Main(string[] args)
         {
-            int input;
-
-            input = Ui();
-            Stopwatch sw = Stopwatch.StartNew();
-            FindSmallPrimes(input);
-            sw.Stop();
-            Console.WriteLine("Time taken: {0}ms", sw.Elapsed.TotalMilliseconds);
-            Console.WriteLine("Press any key to exit");
-            Console.ReadKey();
-
-        }
-
-        static int Ui()
-        {
-            int input = 0;
-
-            Console.WriteLine("Welcome to the prime number finder");
-            Console.WriteLine("How high would you like to seach?");
-
-            do
-            {
-                if (!int.TryParse(Console.ReadLine(), out input))
-                {
-                    Console.WriteLine("invalid input, try again");
-                }
-            }
-            while (input <= 1);
-
-            return input;
-        }
-
-        static void FindSmallPrimes(int length)
-        {
-            bool[] data = new bool[length + 1];
             List<int> getallen = new List<int>();
-            int count = 2;
-
-            for (int i = 2; (i * i) < data.Length; i++)
+            for(int i = 0; i <= 120; i++)
             {
-                if (!data[i])
+                getallen.Add(i);
+
+            }
+            foreach (int i in getallen.ToList())
+            {
+                if (i % 2 == 0)
                 {
-                    for (int p = 2; p * i < data.Length; p++)
-                    {
-                        if (!data[p * i])
-                        {
-                            data[p * i] = true;
-                            getallen.Add(p * i);
-                            count++;
-                        }
-                    }
+                    getallen.Remove(i);
                 }
             }
-            foreach(int i in getallen)
+            foreach (int i in getallen.ToList())
             {
+                if (i % 3 == 0)
+                {
+                    getallen.Remove(i);
+                }
+            }
+            foreach (int i in getallen.ToList())
+            {
+                if (i % 5 == 0)
+                {
+                    getallen.Remove(i);
+                }
+            }
+            foreach (int i in getallen.ToList())
+            {
+                if (i % 7 == 0)
+                {
+                    getallen.Remove(i);
+                }
+            }
+            getallen.RemoveAt(0);
+            getallen.InsertRange(0, new int[] {2, 3, 5, 7 });
+            foreach(int i in getallen)
+            { 
                 Console.Write(i + ", ");
             }
-            count = data.Length - count;
-            Console.WriteLine("total primes: {0}", count);
+            Console.WriteLine(getallen.Count + "aantal priemgetallen");
+            Console.Read();
+            
 
         }
+     
+       
     }
 }
